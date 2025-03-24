@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.sonarqube' version '4.4.1.3373'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = 'org.example.App'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+task runCalculator(type: JavaExec) {
+    group = 'Calculator'
+    description = 'Runs the Gradle Calculator with user input'
+    mainClass = 'org.example.App'
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    // Minimize Gradle output
+    args '--quiet'
+}
+
+sonar {
+    properties {
+        property 'sonar.projectKey', 'gradle-calculator'
+        property 'sonar.host.url', 'http://localhost:9000'
+        property 'sonar.sources', 'src/main/java'
+    }
+}
