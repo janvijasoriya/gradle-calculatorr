@@ -23,12 +23,9 @@ tasks.named('test') {
 
 task runCalculator(type: JavaExec) {
     group = 'Calculator'
-    description = 'Runs the Gradle Calculator with user input'
+    description = 'Runs the Gradle Calculator with parameters'
     mainClass = 'org.example.App'
-    classpath = sourceSets.main.runtimeClasspath
-    standardInput = System.in
-    // Minimize Gradle output
-    args '--quiet'
+    args project.num1, project.num2, project.operation
 }
 
 sonar {
