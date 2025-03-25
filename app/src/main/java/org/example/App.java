@@ -1,30 +1,24 @@
-package org.example;
-import java.util.Scanner;
-
 public class App {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter first number: ");
+        if (args.length != 3) {
+            System.out.println("Usage: java App <num1> <num2> <operation>");
+            System.exit(1);
+        }
         double num1;
         try {
-            num1 = scanner.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Please enter a valid number");
-            scanner.close();
-            return;
+            num1 = Double.parseDouble(args[0]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number for num1");
+            System.exit(1);
         }
-        System.out.print("Enter second number: ");
         double num2;
         try {
-            num2 = scanner.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Please enter a valid number!");
-            scanner.close();
-            return;
+            num2 = Double.parseDouble(args[1]);
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid number for num2");
+            System.exit(1);
         }
-        System.out.print("Choose operation (+, -, *, /): ");
-        String operation = scanner.next();
+        String operation = args[2];
 
         double result;
         switch (operation) {
@@ -50,7 +44,7 @@ public class App {
                 break;
             default:
                 System.out.println("Invalid operation! Use +, -, *, or /.");
+                System.exit(1);
         }
-        scanner.close();
     }
 }
